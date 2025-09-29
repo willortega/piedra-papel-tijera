@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piedra, Papel o Tijera</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <div class="container game-container">
+    <a href="index.html" class="back-link"><i class="fa-solid fa-chevron-left"></i> Volver</a>
+    <h1>Piedra, Papel o Tijera</h1>
+    <p class="subtitle">¡Elige tu jugada y gana!</p>
+
+    <div class="card scoreboard">
+      <div class="score-player">
+        <span>Tú</span>
+        <span id="user-score">0</span>
+      </div>
+      <div class="vs">VS</div>
+      <div class="score-player">
+        <span>CPU</span>
+        <span id="cpu-score">0</span>
+      </div>
+    </div>
+
+    <div class="card moves">
+      <div class="move-display">
+        <span>Tu jugada</span>
+        <i id="user-move-icon" class="fa-solid fa-question"></i>
+      </div>
+      <div class="vs-circle">VS</div>
+      <div class="move-display">
+        <span>CPU</span>
+        <i id="cpu-move-icon" class="fa-solid fa-question"></i>
+      </div>
+    </div>
+
+    <h3 id="result-message">Elige tu jugada</h3>
+
+    <div class="options">
+      <button class="btn btn-option" data-choice="piedra">
+        <i class="fa-solid fa-hand-back-fist"></i> Piedra <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      <button class="btn btn-option" data-choice="papel">
+        <i class="fa-solid fa-file-lines"></i> Papel <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      <button class="btn btn-option" data-choice="tijera">
+        <i class="fa-solid fa-scissors"></i> Tijera <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <!-- Botón Reiniciar -->
+    <button class="reset" onclick="resetGame()">
+      <i class="fa-solid fa-rotate-right"></i> Reiniciar Juego
+    </button>
+
+    <!-- Bloque de reglas -->
+    <div class="rules">
+      <i class="fa-solid fa-circle-info"></i>
+      <ul>
+        <li>Piedra vence a Tijera</li>
+        <li>Papel vence a Piedra</li>
+        <li>Tijera vence a Papel</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
