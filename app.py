@@ -6,12 +6,12 @@ st.set_page_config(
     page_title="Piedra, Papel o Tijera", page_icon="🎮", layout="centered"
 )
 
-st.title("🎮 Piedra, Papel o Tijera")
+st.title("🎮 Piedra, Papel o Tijera con Sonido")
 st.write(
-    "¡Juega contra la computadora y pon a prueba tu suerte! Selecciona una opción abajo:"
+    "¡Juega contra la computadora y escucha los efectos en cada ronda!"
 )
 
-# Inicializar el estado de la sesión para llevar el marcador
+# Inicializar el estado de la sesión para el marcador
 if "puntos_usuario" not in st.session_state:
     st.session_state.puntos_usuario = 0
 if "puntos_maquina" not in st.session_state:
@@ -19,13 +19,11 @@ if "puntos_maquina" not in st.session_state:
 if "empates" not in st.session_state:
     st.session_state.empates = 0
 
-# Opciones disponibles
 opciones = ["Piedra", "Papel", "Tijera"]
 emojis = {"Piedra": "✊", "Papel": "✋", "Tijera": "✌️"}
 
-# Botones de selección para el usuario
+# Botones de selección
 col1, col2, col3 = st.columns(3)
-
 eleccion_usuario = None
 
 with col1:
@@ -38,7 +36,7 @@ with col3:
     if st.button("✌️ Tijera", use_container_width=True):
         eleccion_usuario = "Tijera"
 
-# Lógica del juego cuando el usuario hace una elección
+# Lógica del juego
 if eleccion_usuario:
     eleccion_maquina = random.choice(opciones)
 
@@ -56,10 +54,16 @@ if eleccion_usuario:
             f"### {emojis[eleccion_maquina]} {eleccion_maquina}"
         )
 
-    # Determinar el ganador
+    # Determinar ganador, mostrar mensajes y reproducir sonidos automáticos
     if eleccion_usuario == eleccion_maquina:
         st.info("¡Empate! 🤝")
         st.session_state.empates += 1
+        # Sonido corto para empate (reproductor oculto)
+        st.markdown(
+            '<audio src="https://www.myinstants.com/media/sounds/blip.mp3" autoplay></audio>',
+            unsafe_allow_html=True,
+        )
+
     elif (
         (eleccion_usuario == "Piedra" and eleccion_maquina == "Tijera")
         or (eleccion_usuario == "Papel" and eleccion_maquina == "Piedra")
@@ -67,11 +71,22 @@ if eleccion_usuario:
     ):
         st.success("¡Ganaste esta ronda! 🎉")
         st.session_state.puntos_usuario += 1
+        # Sonido de victoria o campana (reproductor oculto)
+        st.markdown(
+            '<audio src="https://www.myinstants.com/media/sounds/tada.mp3" autoplay></audio>',
+            unsafe_allow_html=True,
+        )
+
     else:
         st.error("¡Perdiste esta ronda! 🤖")
         st.session_state.puntos_maquina += 1
+        # Sonido de error o derrota (reproductor oculto)
+        st.markdown(
+            '<audio src="https://www.myinstants.com/media/sounds/erro.mp3" autoplay></audio>',
+            unsafe_allow_html=True,
+        )
 
-# Mostrar el marcador global
+# Marcador global
 st.markdown("---")
 st.subheader("📊 Marcador")
 m1, m2, m3 = st.columns(3)
@@ -79,7 +94,7 @@ m1.metric("Tus Puntos", st.session_state.puntos_usuario)
 m2.metric("Computadora", st.session_state.puntos_maquina)
 m3.metric("Empates", st.session_state.empates)
 
-# Botón para reiniciar el juego
+# Botón para reiniciar
 if st.button("🔄 Reiniciar Marcador"):
     st.session_state.puntos_usuario = 0
     st.session_state.puntos_maquina = 0
